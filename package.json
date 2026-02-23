@@ -1,18 +1,36 @@
 {
   "name": "expo-rn-todo-list",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "bun x expo start -c",
+    "android": "bun x expo start --android",
+    "ios": "bun x expo start --ios",
+    "web": "bun x expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@tamagui/babel-plugin": "^2.0.0-rc.16",
+    "@tamagui/config": "^2.0.0-rc.16",
+    "@tamagui/font-inter": "^2.0.0-rc.16",
+    "@tamagui/lucide-icons": "^2.0.0-rc.16",
     "expo": "~54.0.33",
+    "expo-constants": "~18.0.13",
+    "expo-font": "~14.0.11",
+    "expo-linking": "~8.0.11",
+    "expo-router": "~6.0.23",
+    "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-web": "~0.19.13",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-worklets-core": "^1.6.3",
+    "tamagui": "^2.0.0-rc.16"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
