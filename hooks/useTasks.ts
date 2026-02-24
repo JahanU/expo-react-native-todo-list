@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useCallback, useMemo, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import UserDefaults from '@alevy97/react-native-userdefaults'
 import { sendCongratulationsNotification } from '../utils/notifications'
 
 const STORAGE_KEY = '@todo_tasks'
@@ -63,7 +64,15 @@ export function useTasks() {
         if (!isLoaded) return
         const saveTasks = async () => {
             try {
+                // Save all tasks to async storage for main app
                 await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
+
+                // Save uncompleted tasks to App Group UserDefaults for iOS Widget
+                const uncompletedTasks = tasks.filter(t => !t.completed).slice(0, 5) // Top 5
+                // @ts-expect-error set is not typed correctly in the community library but exists
+                const sharedDefaults = new UserDefaults('group.com.jahan.exporntodo')
+                // @ts-expect-error
+                await sharedDefaults.set('widget_tasks', JSON.stringify(uncompletedTasks))
             } catch (error) {
                 console.error('Failed to save tasks:', error)
             }
