@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { YStack, Text, ScrollView, Separator } from 'tamagui'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -5,6 +6,7 @@ import { useTasks } from '../hooks/useTasks'
 import { TaskInput } from '../components/TaskInput'
 import { TaskItem } from '../components/TaskItem'
 import { FilterTabs } from '../components/FilterTabs'
+import { registerForPushNotificationsAsync } from '../utils/notifications'
 
 export default function HomeScreen() {
     const {
@@ -19,6 +21,10 @@ export default function HomeScreen() {
     } = useTasks()
 
     const insets = useSafeAreaInsets()
+
+    useEffect(() => {
+        registerForPushNotificationsAsync()
+    }, [])
 
     return (
         <YStack

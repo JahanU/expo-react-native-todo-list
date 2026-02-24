@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useCallback, useMemo, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { sendCongratulationsNotification } from '../utils/notifications'
 
 const STORAGE_KEY = '@todo_tasks'
 
@@ -70,6 +71,8 @@ export function useTasks() {
         saveTasks()
     }, [tasks, isLoaded])
 
+    const activeCount = useMemo(() => tasks.filter((t) => !t.completed).length, [tasks])
+
     const addTask = useCallback((text: string) => {
         const trimmed = text.trim()
         if (!trimmed) return
@@ -83,12 +86,20 @@ export function useTasks() {
     }, [])
 
     const toggleTask = useCallback((id: string) => {
+        const taskToToggle = tasks.find(t => t.id === id)
+        if (taskToToggle && !taskToToggle.completed && activeCount === 1) {
+            sendCongratulationsNotification()
+        }
         dispatch({ type: 'TOGGLE', payload: id })
-    }, [])
+    }, [tasks, activeCount])
 
     const deleteTask = useCallback((id: string) => {
+        const taskToDelete = tasks.find(t => t.id === id)
+        if (taskToDelete && !taskToDelete.completed && activeCount === 1) {
+            sendCongratulationsNotification()
+        }
         dispatch({ type: 'DELETE', payload: id })
-    }, [])
+    }, [tasks, activeCount])
 
     const filteredTasks = useMemo(() => {
         switch (filter) {
