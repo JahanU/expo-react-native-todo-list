@@ -9,6 +9,8 @@
     "web": "bun x expo start --web"
   },
   "dependencies": {
+    "@alevy97/react-native-userdefaults": "^0.2.2",
+    "@bacons/apple-targets": "^4.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@tamagui/babel-plugin": "^2.0.0-rc.16",
     "@tamagui/config": "^2.0.0-rc.16",
